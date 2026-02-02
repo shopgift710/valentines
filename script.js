@@ -84,3 +84,48 @@ noBtn.addEventListener("mouseover", () => {
 function celebrate() {
   document.getElementById("celebration").classList.add("show");
 }
+const memories = {
+  1: {
+    title: "The night that felt ordinary",
+    story: `Nothing special happened.
+No plans, no photos.
+Just time moving quietly.
+
+But it didn’t feel empty anymore.`,
+    images: ["images/memory1.jpg", "images/memory2.jpg"]
+  },
+  2: {
+    title: "A moment we didn’t notice",
+    story: `We were talking about nothing.
+And somehow,
+that meant everything.`,
+    images: ["images/memory2.jpg"]
+  },
+  3: {
+    title: "A day that changed something",
+    story: `That day wasn’t dramatic.
+But something shifted.
+And I never went back.`,
+    images: ["images/memory3.jpg"]
+  }
+};
+
+function openModal(id) {
+  const data = memories[id];
+  document.getElementById("modalTitle").innerText = data.title;
+  document.getElementById("modalStory").innerText = data.story;
+
+  const gallery = document.getElementById("modalImages");
+  gallery.innerHTML = "";
+  data.images.forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    gallery.appendChild(img);
+  });
+
+  document.getElementById("memoryModal").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("memoryModal").classList.remove("show");
+}
