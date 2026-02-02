@@ -21,37 +21,21 @@
   <!-- SECTION 1 : MEMORY LANE -->
   <section class="section">
     <h2>Valentine’s Memory Lane</h2>
-    <p class="subtitle">Some moments arrive quietly — and stay.</p>
+    <p>Some moments never ask to be remembered. They just stay.</p>
 
-    <div class="cue-container">
-
-      <div class="cue-card" onclick="openModal(1)">
+    <div class="memory-grid">
+      <div class="memory-card">
         <img src="images/memory1.jpg" />
-        <div class="cue-content">
-          <h3>The night that felt ordinary</h3>
-          <p>Nothing special. Nothing planned. Yet something changed.</p>
-          <button>Open Memory</button>
-        </div>
+        <span>The night that felt ordinary</span>
       </div>
-
-      <div class="cue-card" onclick="openModal(2)">
+      <div class="memory-card">
         <img src="images/memory2.jpg" />
-        <div class="cue-content">
-          <h3>A moment we didn’t notice</h3>
-          <p>Comfort has a way of arriving unnoticed.</p>
-          <button>Open Memory</button>
-        </div>
+        <span>A moment we didn’t notice</span>
       </div>
-
-      <div class="cue-card" onclick="openModal(3)">
+      <div class="memory-card">
         <img src="images/memory3.jpg" />
-        <div class="cue-content">
-          <h3>A day that changed something</h3>
-          <p>Not dramatic. Just permanent.</p>
-          <button>Open Memory</button>
-        </div>
+        <span>A day that changed something</span>
       </div>
-
     </div>
   </section>
 
@@ -61,12 +45,9 @@
     <p>Nothing fits better than what’s meant.</p>
 
     <div id="puzzle" class="puzzle-grid"></div>
-    <div id="puzzleSuccess" class="puzzle-success">
-      💖 You fixed us perfectly 💖
-    </div>
   </section>
 
-  <!-- SECTION 3 : VALENTINE -->
+  <!-- SECTION 3 : VALENTINE QUESTION -->
   <section class="section center">
     <h2>Will you be my Valentine? 💘</h2>
 
@@ -78,22 +59,10 @@
 
 </main>
 
-<!-- MEMORY MODAL -->
-<div id="memoryModal" class="modal">
-  <div class="modal-box">
-    <span class="close" onclick="closeModal()">×</span>
-    <h2 id="modalTitle"></h2>
-    <p id="modalStory"></p>
-    <div class="modal-gallery" id="modalImages"></div>
-  </div>
-</div>
-
 <!-- CELEBRATION -->
 <div id="celebration">
   <h1>YAYYYY 🎉💋💖</h1>
   <p>Nothing can stop us from getting closer 💞</p>
 </div>
-
-<script src="script.js"></script>
 </body>
 </html>
