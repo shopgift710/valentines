@@ -1,127 +1,254 @@
 :root {
-    --primary: #ff4d6d;
-    --primary-hover: #ff758f;
-    --text-main: #2d3436;
-    --text-sub: #636e72;
-    --glass: rgba(255, 255, 255, 0.7);
-    --shadow: 0 20px 50px rgba(255, 77, 109, 0.15);
+  --bg: #fdfaf9;
+  --accent: #e8a1b0;
+  --accent-dark: #d48a9a;
+  --text-main: #2d2d2d;
+  --text-light: #6b6b6b;
+  --white: #ffffff;
+  --glass: rgba(255, 255, 255, 0.7);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff0f3;
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
-    color: var(--text-main);
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* Background Decorations */
-.background-blobs .blob {
-    position: absolute;
-    filter: blur(80px);
-    z-index: 0;
-    border-radius: 50%;
-}
-.blob-1 { width: 400px; height: 400px; background: #ffccd5; top: -100px; left: -100px; }
-.blob-2 { width: 300px; height: 300px; background: #ffb3c1; bottom: -50px; right: -50px; }
-
-/* The Main Card */
-.container {
-    z-index: 10;
-    width: 90%;
-    max-width: 450px;
-    perspective: 1000px;
+/* Background Decoration */
+.bg-blobs {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at 10% 20%, rgba(232, 161, 176, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(232, 161, 176, 0.1) 0%, transparent 40%);
+  z-index: -1;
 }
 
-.valentine-card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 3rem 2rem;
-    border-radius: 32px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    animation: fadeInSlide 1s ease-out;
+.display-serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
-.media-wrapper img {
-    width: 180px;
-    height: 180px;
-    border-radius: 24px;
-    margin-bottom: 1.5rem;
-    object-fit: cover;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+/* Glassmorphism */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
 }
 
-h1 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.8rem;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
+/* Screens */
+.screen {
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-.subtitle {
-    font-size: 1rem;
-    color: var(--text-sub);
-    margin-bottom: 2.5rem;
-    font-weight: 300;
+.screen.active { display: flex; }
+
+.intro-card {
+  padding: 60px;
+  text-align: center;
+  max-width: 500px;
 }
 
-/* Premium Buttons */
-.btn-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-}
-
-.btn {
-    width: 100%;
-    padding: 16px 32px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+/* Buttons */
+button { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .btn-primary {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(232, 161, 176, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--primary-hover);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(255, 77, 109, 0.4);
+  transform: translateY(-3px);
+  background: var(--accent-dark);
+  box-shadow: 0 15px 30px rgba(232, 161, 176, 0.4);
 }
 
-.btn-secondary {
-    background: transparent;
-    color: var(--text-sub);
-    border: 1px solid #dcdde1;
+.btn-text {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
 }
 
-/* Animations */
-@keyframes fadeInSlide {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Main Content */
+main {
+  display: none;
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
 }
 
-/* For mobile responsiveness */
-@media (max-width: 400px) {
-    h1 { font-size: 2.2rem; }
-    .valentine-card { padding: 2rem 1.5rem; }
+.text-center { text-align: center; margin-bottom: 50px; }
+
+.subtitle {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* Memory Lane Cards */
+.cue-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.cue-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 30px;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  border: 1px solid transparent;
+}
+
+.cue-card:hover {
+  transform: scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+}
+
+.img-wrapper {
+  overflow: hidden;
+  border-radius: 16px;
+  height: 200px;
+}
+
+.cue-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.cue-card:hover img { transform: scale(1.1); }
+
+/* Puzzle */
+.puzzle-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.puzzle-grid {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.tile {
+  background-image: url("images/puzzle.jpg");
+  background-size: 300px 300px;
+  cursor: grab;
+  transition: opacity 0.2s;
+}
+
+/* Valentine Section */
+.valentine-card {
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.choices {
+  margin-top: 40px;
+  height: 60px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(45, 45, 45, 0.2);
+  backdrop-filter: blur(8px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal.show { display: flex; }
+
+.modal-box {
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+/* Celebration Overlay */
+#celebration {
+  position: fixed;
+  inset: 0;
+  background: var(--accent);
+  color: white;
+  display: none;
+  z-index: 2000;
+  text-align: center;
+}
+
+#celebration.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .cue-card { grid-template-columns: 1fr; }
+  .display-serif { font-size: 2rem; }
 }
