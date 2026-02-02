@@ -1,4 +1,4 @@
-
+/* Need to add closing and one celebration when puzzle is successful  */
 function startJourney() {
   document.getElementById("intro").classList.remove("active");
   document.getElementById("mainContent").style.display = "block";
