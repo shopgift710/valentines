@@ -6,109 +6,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    :root {
+      --bg1: #f7c1cc;
+      --bg2: #c7d2fe;
+      --glass: rgba(255,255,255,0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #f7c1cc, #c7d2fe);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fff;
       height: 100vh;
       overflow: hidden;
     }
 
     .screen {
-      display: none;
-      height: 100vh;
-      padding: 40px;
-      box-sizing: border-box;
-    }
-
-    .screen.active {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      padding: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.8s ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    h1, h2 {
+      font-weight: 500;
+    }
+
+    p {
+      max-width: 500px;
+      line-height: 1.6;
     }
 
     button {
       margin-top: 30px;
-      padding: 12px 24px;
+      padding: 12px 28px;
       border-radius: 24px;
       border: none;
       background: rgba(255,255,255,0.9);
       color: #333;
       font-size: 1rem;
       cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    .memory {
-      margin: 12px 0;
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    /* MEMORY LANE */
+    .memories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .memory-card {
+      background: var(--glass);
+      border-radius: 18px;
+      overflow: hidden;
       cursor: pointer;
-      opacity: 0.9;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    .memory.visited {
-      opacity: 0.4;
+    .memory-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .memory-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      filter: grayscale(20%);
+    }
+
+    .memory-card span {
+      display: block;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+
+    /* STORY TEXT */
+    .story {
+      white-space: pre-line;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PUZZLE */
+    .pieces {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .piece {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.4s ease, background 0.4s ease;
+    }
+
+    .piece.active {
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      transform: scale(1.1);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- SCREEN 0 -->
-  <div id="screen-landing" class="screen active">
+  <!-- LANDING -->
+  <div id="landing" class="screen active">
     <h1>Some moments don’t stay in time.</h1>
     <p>They wait to be chosen.</p>
-    <button onclick="goTo('screen-memories')">Begin</button>
+    <button onclick="goTo('memory')">Begin</button>
   </div>
 
-  <!-- SCREEN 1 -->
-  <div id="screen-memories" class="screen">
-    <h2>Which moment do you want to return to?</h2>
+  <!-- MEMORY LANE -->
+  <div id="memory" class="screen">
+    <h2>Memory Lane</h2>
+    <p>Not all memories ask to be remembered.</p>
 
-    <div class="memory" onclick="openStory(1)">🌙 The night that felt ordinary</div>
-    <div class="memory" onclick="openStory(2)">☕ A moment we didn’t notice</div>
-    <div class="memory" onclick="openStory(3)">🌧️ A day that changed something</div>
+    <div class="memories">
+      <div class="memory-card" onclick="openStory(1)">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" />
+        <span>The night that felt ordinary</span>
+      </div>
+
+      <div class="memory-card" onclick="openStory(2)">
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d" />
+        <span>A moment we didn’t notice</span>
+      </div>
+
+      <div class="memory-card" onclick="openStory(3)">
+        <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335" />
+        <span>A day that changed something</span>
+      </div>
+    </div>
   </div>
 
-  <!-- STORY SCREEN -->
-  <div id="screen-story" class="screen">
-    <p id="story-text"></p>
-    <button onclick="collectPiece()">Keep this</button>
+  <!-- STORY -->
+  <div id="story" class="screen">
+    <p id="storyText" class="story"></p>
+    <button onclick="collect()">Keep this</button>
   </div>
 
-  <!-- PUZZLE SCREEN -->
-  <div id="screen-puzzle" class="screen">
-    <h2>Some things only make sense<br/>when you put them together.</h2>
-    <p>(Puzzle interaction comes next)</p>
+  <!-- PUZZLE -->
+  <div id="puzzle" class="screen">
+    <h2>Some things only make sense<br>when you put them together.</h2>
+
+    <div class="pieces">
+      <div class="piece" onclick="activate(this)">💗</div>
+      <div class="piece" onclick="activate(this)">✨</div>
+      <div class="piece" onclick="activate(this)">🧩</div>
+    </div>
   </div>
 
-  <!-- FINAL SCREEN -->
-  <div id="screen-final" class="screen">
+  <!-- FINAL -->
+  <div id="final" class="screen">
     <h1>I don’t believe in perfect moments.</h1>
-    <p>I believe in the ones that stay.</p>
-    <p>And somehow, you always do.</p>
+    <p>I believe in the ones that stay.<br><br>And somehow, you always do.</p>
   </div>
 
   <script>
-    let piecesCollected = 0;
+    let collected = 0;
+    let activePieces = 0;
 
     const stories = {
       1: `Nothing special happened that night.
-No plans, no photographs.
-Just time passing quietly.
+No plans. No photos.
+Just time moving quietly.
 
-But somehow,
-it didn’t feel empty anymore.`,
-      2: `We were busy talking about nothing.
-The kind of conversation
-you forget immediately.
-
-Except I didn’t.`,
-      3: `That day wasn’t easy.
-It wasn’t dramatic either.
-
-But something shifted.`
+But it didn’t feel empty anymore.`,
+      2: `We talked about nothing important.
+And somehow,
+that meant everything.`,
+      3: `That day wasn’t dramatic.
+But something changed.
+And I never really went back.`
     };
 
     function goTo(id) {
@@ -117,16 +225,26 @@ But something shifted.`
     }
 
     function openStory(id) {
-      document.getElementById('story-text').innerText = stories[id];
-      goTo('screen-story');
+      document.getElementById('storyText').innerText = stories[id];
+      goTo('story');
     }
 
-    function collectPiece() {
-      piecesCollected++;
-      if (piecesCollected >= 2) {
-        goTo('screen-puzzle');
+    function collect() {
+      collected++;
+      if (collected >= 2) {
+        goTo('puzzle');
       } else {
-        goTo('screen-memories');
+        goTo('memory');
+      }
+    }
+
+    function activate(el) {
+      if (!el.classList.contains('active')) {
+        el.classList.add('active');
+        activePieces++;
+        if (activePieces === 3) {
+          setTimeout(() => goTo('final'), 800);
+        }
       }
     }
   </script>
