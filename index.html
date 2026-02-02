@@ -1,177 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Valentine’s Memory Lane</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question | Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<!-- INTRO SCREEN -->
-<section id="intro" class="screen active">
-  <h1>So XYZ, are you up for this? 💗</h1>
-  <button onclick="startJourney()">Let’s Begin</button>
-</section>
-
-<!-- MAIN CONTENT -->
-<main id="mainContent">
-
-<!-- SECTION 1 : MEMORY LANE (CUE CARDS) -->
-<section class="section">
-  <h2>Valentine’s Memory Lane</h2>
-  <p class="subtitle">Some moments arrive quietly — and stay.</p>
-
-  <div class="cue-container">
-
-    <div class="cue-card" onclick="openModal(1)">
-      <img src="images/memory1.jpg" />
-      <div class="cue-content">
-        <h3>The night that felt ordinary</h3>
-        <p>Nothing special. Nothing planned. Yet something changed.</p>
-        <button>Open Memory</button>
-      </div>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
 
-    <div class="cue-card" onclick="openModal(2)">
-      <img src="images/memory2.jpg" />
-      <div class="cue-content">
-        <h3>A moment we didn’t notice</h3>
-        <p>Comfort has a way of arriving unnoticed.</p>
-        <button>Open Memory</button>
-      </div>
-    </div>
+    <main class="container">
+        <div class="valentine-card">
+            <div class="media-wrapper">
+                <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZqZzR4eXh6ZzR4eXh6ZzR4eXh6ZzR4eXh6ZzR4eXh6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/KzM1lAfJjCW3Ic7A9C/giphy.gif" alt="Cute Animation">
+            </div>
+            
+            <h1 id="question">Will you be my Valentine?</h1>
+            <p class="subtitle">I promise it'll be worth it! ✨</p>
+            
+            <div class="btn-group">
+                <button id="yes-btn" class="btn btn-primary">Yes, I'd love to!</button>
+                <button id="no-btn" class="btn btn-secondary">No</button>
+            </div>
+        </div>
+    </main>
 
-    <div class="cue-card" onclick="openModal(3)">
-      <img src="images/memory3.jpg" />
-      <div class="cue-content">
-        <h3>A day that changed something</h3>
-        <p>Not dramatic. Just permanent.</p>
-        <button>Open Memory</button>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- SECTION 2 : PUZZLE -->
-  <section class="section">
-    <h2>Put Us Together 🧩</h2>
-    <p>Nothing fits better than what’s meant.</p>
-
-    <div id="puzzle" class="puzzle-grid"></div>
-  </section>
-
-  <!-- SECTION 3 : VALENTINE QUESTION -->
-  <section class="section center">
-    <h2>Will you be my Valentine? 💘</h2>
-
-    <div class="choices">
-      <button id="yesBtn" onclick="celebrate()">Yes 💕</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
-  </section>
-
-</main>
-
-<!-- MEMORY MODAL -->
-<div id="memoryModal" class="modal">
-  <div class="modal-box">
-    <span class="close" onclick="closeModal()">×</span>
-
-    <h2 id="modalTitle"></h2>
-    <p id="modalStory"></p>
-
-    <div class="modal-gallery" id="modalImages"></div>
-  </div>
-</div>
-
-<!-- CELEBRATION -->
-<div id="celebration">
-  <h1>YAYYYY 🎉💋💖</h1>
-  <p>Nothing can stop us from getting closer 💞</p>
-</div>
-
-<script>
-/* INTRO */
-function startJourney() {
-  document.getElementById("intro").classList.remove("active");
-  document.getElementById("mainContent").style.display = "block";
-}
-
-/* PUZZLE LOGIC */
-const puzzle = document.getElementById("puzzle");
-let order = [...Array(9).keys()].sort(() => Math.random() - 0.5);
-
-order.forEach(i => {
-  const tile = document.createElement("div");
-  tile.className = "tile";
-  tile.style.backgroundPosition = `${(i % 3) * -100}px ${(Math.floor(i / 3)) * -100}px`;
-  tile.draggable = true;
-  puzzle.appendChild(tile);
-});
-
-/* NO BUTTON ESCAPE */
-const noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*100}px)`;
-});
-
-/* CELEBRATION */
-function celebrate() {
-  document.getElementById("celebration").classList.add("show");
-}
-
-const memories = {
-  1: {
-    title: "The night that felt ordinary",
-    story: `Nothing special happened.
-No plans, no photos.
-Just time moving quietly.
-
-But it didn’t feel empty anymore.`,
-    images: ["images/memory1.jpg", "images/memory2.jpg"]
-  },
-  2: {
-    title: "A moment we didn’t notice",
-    story: `We were talking about nothing.
-And somehow,
-that meant everything.`,
-    images: ["images/memory2.jpg"]
-  },
-  3: {
-    title: "A day that changed something",
-    story: `That day wasn’t dramatic.
-But something shifted.
-And I never went back.`,
-    images: ["images/memory3.jpg"]
-  }
-};
-
-function openModal(id) {
-  const data = memories[id];
-  document.getElementById("modalTitle").innerText = data.title;
-  document.getElementById("modalStory").innerText = data.story;
-
-  const gallery = document.getElementById("modalImages");
-  gallery.innerHTML = "";
-  data.images.forEach(src => {
-    const img = document.createElement("img");
-    img.src = src;
-    gallery.appendChild(img);
-  });
-
-  document.getElementById("memoryModal").classList.add("show");
-}
-
-function closeModal() {
-  document.getElementById("memoryModal").classList.remove("show");
-}
-
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
-
