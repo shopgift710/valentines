@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f7c1cc, #c7d2fe);
+      color: #ffffff;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      height: 100vh;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      border-radius: 24px;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .memory {
+      margin: 12px 0;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    .memory.visited {
+      opacity: 0.4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SCREEN 0 -->
+  <div id="screen-landing" class="screen active">
+    <h1>Some moments don’t stay in time.</h1>
+    <p>They wait to be chosen.</p>
+    <button onclick="goTo('screen-memories')">Begin</button>
+  </div>
+
+  <!-- SCREEN 1 -->
+  <div id="screen-memories" class="screen">
+    <h2>Which moment do you want to return to?</h2>
+
+    <div class="memory" onclick="openStory(1)">🌙 The night that felt ordinary</div>
+    <div class="memory" onclick="openStory(2)">☕ A moment we didn’t notice</div>
+    <div class="memory" onclick="openStory(3)">🌧️ A day that changed something</div>
+  </div>
+
+  <!-- STORY SCREEN -->
+  <div id="screen-story" class="screen">
+    <p id="story-text"></p>
+    <button onclick="collectPiece()">Keep this</button>
+  </div>
+
+  <!-- PUZZLE SCREEN -->
+  <div id="screen-puzzle" class="screen">
+    <h2>Some things only make sense<br/>when you put them together.</h2>
+    <p>(Puzzle interaction comes next)</p>
+  </div>
+
+  <!-- FINAL SCREEN -->
+  <div id="screen-final" class="screen">
+    <h1>I don’t believe in perfect moments.</h1>
+    <p>I believe in the ones that stay.</p>
+    <p>And somehow, you always do.</p>
+  </div>
+
+  <script>
+    let piecesCollected = 0;
+
+    const stories = {
+      1: `Nothing special happened that night.
+No plans, no photographs.
+Just time passing quietly.
+
+But somehow,
+it didn’t feel empty anymore.`,
+      2: `We were busy talking about nothing.
+The kind of conversation
+you forget immediately.
+
+Except I didn’t.`,
+      3: `That day wasn’t easy.
+It wasn’t dramatic either.
+
+But something shifted.`
+    };
+
+    function goTo(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function openStory(id) {
+      document.getElementById('story-text').innerText = stories[id];
+      goTo('screen-story');
+    }
+
+    function collectPiece() {
+      piecesCollected++;
+      if (piecesCollected >= 2) {
+        goTo('screen-puzzle');
+      } else {
+        goTo('screen-memories');
+      }
+    }
+  </script>
+
+</body>
+</html>
