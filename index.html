@@ -9,75 +9,69 @@
 </head>
 
 <body>
-<div class="bg-blobs"></div>
+<div class="bg-decoration"></div>
 
 <section id="intro" class="screen active">
-  <div class="glass-card intro-card">
-    <h1>So XYZ, are you up for this? 💗</h1>
-    <button class="btn-primary" onclick="startJourney()">Let’s Begin</button>
+  <div class="glass-card intro-box">
+    <h1>So XYZ, are you up for this? 💗 [cite: 2]</h1>
+    <button class="btn-main" onclick="startJourney()">Let’s Begin</button>
   </div>
 </section>
 
 <main id="mainContent">
 
-  <section class="section">
-    <div class="text-center">
-        <h2 class="display-serif">Valentine’s Memory Lane</h2>
-        <p class="subtitle">Some moments arrive quietly — and stay.</p>
-    </div>
+<section class="section">
+  <div class="section-header">
+    <h2 class="serif-title">Valentine’s Memory Lane</h2>
+    <p class="subtitle">Some moments arrive quietly — and stay.</p>
+  </div>
 
-    <div class="cue-container">
-      <div class="cue-card" onclick="openModal(1)">
-        <div class="img-wrapper">
-            <img src="images/memory1.jpg" alt="Memory 1" />
-        </div>
-        <div class="cue-content">
-          <h3>The night that felt ordinary</h3>
-          <p>Nothing special. Nothing planned. Yet something changed.</p>
-          <button class="btn-text">Open Memory —</button>
-        </div>
-      </div>
-
-      <div class="cue-card" onclick="openModal(2)">
-        <div class="img-wrapper">
-            <img src="images/memory2.jpg" alt="Memory 2" />
-        </div>
-        <div class="cue-content">
-          <h3>A moment we didn’t notice</h3>
-          <p>Comfort has a way of arriving unnoticed.</p>
-          <button class="btn-text">Open Memory —</button>
-        </div>
-      </div>
-
-      <div class="cue-card" onclick="openModal(3)">
-        <div class="img-wrapper">
-            <img src="images/memory3.jpg" alt="Memory 3" />
-        </div>
-        <div class="cue-content">
-          <h3>A day that changed something</h3>
-          <p>Not dramatic. Just permanent.</p>
-          <button class="btn-text">Open Memory —</button>
-        </div>
+  <div class="cue-container">
+    <div class="cue-card" onclick="openModal(1)">
+      <div class="img-frame"><img src="images/memory1.jpg" /></div>
+      <div class="cue-content">
+        <h3>The night that felt ordinary</h3>
+        <p>Nothing special. [cite: 3] Nothing planned. Yet something changed.</p>
+        <button class="btn-link">Open Memory —</button>
       </div>
     </div>
-  </section>
+
+    <div class="cue-card" onclick="openModal(2)">
+      <div class="img-frame"><img src="images/memory2.jpg" /></div>
+      <div class="cue-content">
+        <h3>A moment we didn’t notice</h3>
+        <p>Comfort has a way of arriving unnoticed.</p>
+        <button class="btn-link">Open Memory —</button>
+      </div>
+    </div>
+
+    <div class="cue-card" onclick="openModal(3)">
+      <div class="img-frame"><img src="images/memory3.jpg" /></div>
+      <div class="cue-content">
+        <h3>A day that changed something</h3>
+        <p>Not dramatic. [cite: 5] Just permanent.</p>
+        <button class="btn-link">Open Memory —</button>
+      </div>
+    </div>
+  </div>
+</section>
 
   <section class="section">
-    <div class="text-center">
-        <h2 class="display-serif">Put Us Together 🧩</h2>
+    <div class="section-header">
+        <h2 class="serif-title">Put Us Together 🧩</h2>
         <p class="subtitle">Nothing fits better than what’s meant.</p>
     </div>
-    <div class="puzzle-wrapper">
+    <div class="puzzle-container">
         <div id="puzzle" class="puzzle-grid"></div>
     </div>
   </section>
 
   <section class="section center">
-    <div class="glass-card valentine-card">
-        <h2 class="display-serif">Will you be my Valentine? 💘</h2>
+    <div class="glass-card val-card">
+        <h2 class="serif-title">Will you be my Valentine? 💘 [cite: 6]</h2>
         <div class="choices">
-          <button id="yesBtn" class="btn-primary" onclick="celebrate()">Yes 💕</button>
-          <button id="noBtn" class="btn-secondary">No 🙈</button>
+          <button id="yesBtn" class="btn-main" onclick="celebrate()">Yes 💕</button>
+          <button id="noBtn" class="btn-outline">No 🙈</button>
         </div>
     </div>
   </section>
@@ -86,14 +80,14 @@
 <div id="memoryModal" class="modal">
   <div class="modal-box glass-card">
     <span class="close" onclick="closeModal()">×</span>
-    <h2 id="modalTitle" class="display-serif"></h2>
+    <h2 id="modalTitle" class="serif-title"></h2>
     <p id="modalStory"></p>
     <div class="modal-gallery" id="modalImages"></div>
   </div>
 </div>
 
 <div id="celebration">
-  <div class="celebration-content">
+  <div class="celebration-inner">
     <h1>YAYYYY 🎉💋💖</h1>
     <p>Nothing can stop us from getting closer 💞</p>
   </div>
@@ -102,67 +96,65 @@
 <script>
 function startJourney() {
   document.getElementById("intro").classList.remove("active");
-  const main = document.getElementById("mainContent");
-  main.style.display = "block";
+  document.getElementById("mainContent").style.display = "block"; [cite: 7]
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* PUZZLE LOGIC */
 const puzzle = document.getElementById("puzzle");
-let order = [...Array(9).keys()].sort(() => Math.random() - 0.5);
+let order = [...Array(9).keys()].sort(() => Math.random() - 0.5); [cite: 8]
 order.forEach(i => {
   const tile = document.createElement("div");
   tile.className = "tile";
   tile.style.backgroundPosition = `${(i % 3) * -100}px ${(Math.floor(i / 3)) * -100}px`;
-  tile.draggable = true;
+  tile.draggable = true; [cite: 8]
   puzzle.appendChild(tile);
 });
 
-/* NO BUTTON ESCAPE - Improved Logic */
+/* NO BUTTON ESCAPE - Playful and smooth */
 const noBtn = document.getElementById("noBtn");
 noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  const x = Math.random() * (window.innerWidth - 150);
+  const y = Math.random() * (window.innerHeight - 100);
   noBtn.style.position = 'fixed';
   noBtn.style.left = x + 'px';
-  noBtn.style.top = y + 'px';
+  noBtn.style.top = y + 'px'; [cite: 9]
 });
 
-/* CELEBRATION */
 function celebrate() {
-  document.getElementById("celebration").classList.add("show");
+  document.getElementById("celebration").classList.add("show"); [cite: 10]
 }
 
 const memories = {
   1: {
     title: "The night that felt ordinary",
-    story: "Nothing special happened. No plans, no photos. Just time moving quietly. But it didn’t feel empty anymore.",
+    story: `Nothing special happened. [cite: 11] No plans, no photos. Just time moving quietly.\n\nBut it didn’t feel empty anymore.`,
     images: ["images/memory1.jpg", "images/memory2.jpg"]
   },
   2: {
     title: "A moment we didn’t notice",
-    story: "We were talking about nothing. And somehow, that meant everything.",
+    story: `We were talking about nothing. [cite: 12] And somehow, that meant everything.`,
     images: ["images/memory2.jpg"]
   },
   3: {
     title: "A day that changed something",
-    story: "That day wasn’t dramatic. But something shifted. And I never went back.",
+    story: `That day wasn’t dramatic. [cite: 13] But something shifted. And I never went back.`,
     images: ["images/memory3.jpg"]
   }
 };
 
 function openModal(id) {
-  const data = memories[id];
+  const data = memories[id]; [cite: 14]
   document.getElementById("modalTitle").innerText = data.title;
   document.getElementById("modalStory").innerText = data.story;
   const gallery = document.getElementById("modalImages");
-  gallery.innerHTML = "";
+  gallery.innerHTML = ""; [cite: 15]
   data.images.forEach(src => {
     const img = document.createElement("img");
     img.src = src;
     gallery.appendChild(img);
   });
-  document.getElementById("memoryModal").classList.add("show");
+  document.getElementById("memoryModal").classList.add("show"); [cite: 16]
 }
 
 function closeModal() {
